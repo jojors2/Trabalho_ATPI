@@ -1,0 +1,240 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <locale>
+
+using namespace std;
+
+void separacao() {
+    cout << "------------------------------------\n";
+}
+
+int selecionar_rota() {
+    int rota;
+    cout << "Qual rota deseja?\n";
+    cout << "1. Norte para Sul\n";
+    cout << "2. Sul para Norte\n";
+    separacao();
+    cin >> rota;
+    separacao();
+    return rota;
+}
+
+int selecionar_horario() {
+    int horario;
+    cout << "Selecione o horário de viagem:\n";
+    cout << "1. 08:00\n";
+    cout << "2. 10:00\n";
+    cout << "3. 12:00\n";
+    cout << "4. 14:00\n";
+    cout << "5. 16:00\n";
+    separacao();
+    cin >> horario;
+    separacao();
+    return horario;
+}
+
+void determinar_sombra(int rota, int horario, bool sombra[5][4]) {
+    for (int i = 0; i < 5; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            sombra[i][j] = false;
+        }
+    }
+
+    if (horario == 1 || horario == 2) {  // Manhã
+        if (rota == 1) {  // Norte para Sul
+            for (int i = 0; i < 5; ++i) {
+                sombra[i][2] = true;
+                sombra[i][3] = true;
+            }
+        } else {  // Sul para Norte
+            for (int i = 0; i < 5; ++i) {
+                sombra[i][0] = true;
+                sombra[i][1] = true;
+            }
+        }
+    } else if (horario == 4 || horario == 5) {  // Tarde
+        if (rota == 1) {  // Norte para Sul
+            for (int i = 0; i < 5; ++i) {
+                sombra[i][0] = true;
+                sombra[i][1] = true;
+            }
+        } else {  // Sul para Norte
+            for (int i = 0; i < 5; ++i) {
+                sombra[i][2] = true;
+                sombra[i][3] = true;
+            }
+        }
+    }
+}
+
+void mostrar_assentos(bool sombra[5][4], bool ocupados[5][4]) {
+    cout << "Mapa dos Assentos:\n";
+    cout << "Legenda:\n";
+    cout << "[O] - Ocupado\n";
+    cout << "[ ] - Assento livre\n\n";
+
+    separacao();
+    cout << "   A  B  C  D\n";
+    for (int i = 0; i < 5; ++i) {
+        cout << i + 1 << " ";
+        for (int j = 0; j < 4; ++j) {
+            if (ocupados[i][j]) {
+                if (sombra[i][j]) {
+                    cout << "[ ]";
+                } else {
+                    cout << "[O]";
+                }
+            } else {
+                cout << "[ ]";
+            }
+        }
+        cout << endl;
+    }
+    separacao();
+    cout << "Colunas com sol: ";
+    for (int i = 0; i < 4; ++i) {
+        bool coluna_com_sombra = false;
+        for (int k = 0; k < 5; ++k) {
+            if (sombra[k][i]) {
+                coluna_com_sombra = true;
+                break;
+            }
+        }
+        if (!coluna_com_sombra) {
+            cout << char('A' + i) << " ";
+        }
+    }
+    cout << endl;
+    separacao();
+}
+        
+void inicializar_assentos_aleatorios(bool ocupados[5][4]) {
+    srand(time(0));
+    int num_ocupados_inicial = rand() % 10 + 1; 
+    for (int k = 0; k < num_ocupados_inicial; ++k) {
+        int i, j;
+        do {
+            i = rand() % 5;
+            j = rand        () % 4;
+        } while (ocupados[i][j]);
+        ocupados[i][j] = true;
+    }
+}
+
+void escolher_assento_aleatorio(bool ocupados[5][4], int num_passagens) {
+    srand(time(0));
+    for (int k = 0; k < num_passagens; ++k) {
+        int i, j;
+        do {
+            i = rand() % 5;
+            j = rand() % 4;
+        } while (ocupados[i][j]);
+        ocupados[i][j] = true;
+        cout << "Assento aleatório escolhido: " << char('A' + j) << (i + 1) << endl;
+    }
+}
+
+void escolher_assento_manual(bool ocupados[5][4], int num_passagens) {
+    char assentos_escolhidos[num_passagens][2];
+
+    for (int k = 0; k < num_passagens; ++k) {
+        char fileira;
+        int coluna;
+        int i, j;
+        do {
+            cout << "Escolha o assento " << k + 1 << " (ex: A1): ";
+            cin >> fileira >> coluna;
+            separacao();
+            i = fileira - 'A';
+            j = coluna - 1;
+            if (i < 0 || i >= 5 || j < 0 || j >= 4) {
+                cout << "Assento inválido. Tente novamente.\n";
+            } else if (ocupados[i][j]) {
+                cout << "Assento já ocupado. Escolha outro.\n";
+            }
+        } while (i < 0 || i >= 5 || j < 0 || j >= 4 || ocupados[i][j]);
+        ocupados[i][j] = true;
+        assentos_escolhidos[k][0] = fileira;
+        assentos_escolhidos[k][1] = coluna;
+        cout << "Assento " << fileira << coluna << " escolhido com sucesso.\n";
+        separacao();
+    }
+}
+
+void comprar_passagens(bool ocupados[5][4]) {
+    int num_passagens;
+    cout << "Quantas passagens você deseja comprar?\n";
+    cin >> num_passagens;
+	separacao();
+    char escolha;
+    cout << "Você deseja escolher os assentos? (S/N):\n";
+    cin >> escolha;
+    separacao();
+    if (escolha == 'S' || escolha == 's') {
+        escolher_assento_manual(ocupados, num_passagens);
+    } else {
+        escolher_assento_aleatorio(ocupados, num_passagens);
+    }
+    const int preco_unitario = 50;
+    int valor_total = num_passagens * preco_unitario;
+    cout << "Você comprou " << num_passagens << " passagens.\n";
+    separacao();
+    cout << "Valor total: R$ " << valor_total << endl;
+    separacao();
+  	cout << "Pedido finalizado. Obrigado e boa viagem.\n";
+  	separacao();
+  	exit(0);
+}
+
+int main() {
+    setlocale(LC_ALL, "Portuguese");
+    int rota = 0;
+    int horario = 0;
+    bool sombra[5][4] = { {false} };
+    bool ocupados[5][4] = { {false} };
+	
+    inicializar_assentos_aleatorios(ocupados);  // Inicializar assentos ocupados aleatoriamente
+    
+    cout << "Bem-vindo ao Sistema de Transporte Rodoviário\n";
+    separacao();
+    bool sair = false;
+    while (!sair) {
+        cout << "O que deseja fazer?\n";
+        cout << "1. Selecionar rota\n";
+        cout << "2. Selecionar horário de viagem\n";
+        cout << "3. Ver mapa dos assentos\n";
+        cout << "4. Comprar passagens\n";
+        separacao();
+
+        int opcao;
+        cout << "Escolha uma opção:\n";
+        cin >> opcao;
+        separacao();
+
+        switch (opcao) {
+            case 1:
+                rota = selecionar_rota();
+                break;
+            case 2:
+                horario = selecionar_horario();
+                break;
+            case 3:
+                if (rota != 0 && horario != 0) {
+                    determinar_sombra(rota, horario, sombra);
+                    mostrar_assentos(sombra, ocupados);
+                } else {
+                    cout << "Por favor, selecione a rota e o horário primeiro.\n";
+                    separacao();
+                }
+                break;
+            case 4:
+                comprar_passagens(ocupados);
+                break;
+            default:
+                cout << "Opção inválida. Tente novamente." << endl;
+        }
+    }
+
+    return 0;
+}
