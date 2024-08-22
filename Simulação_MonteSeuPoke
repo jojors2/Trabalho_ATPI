@@ -1,0 +1,585 @@
+#include <iostream>
+#include <locale>
+#include <iomanip>
+using namespace std;
+
+void separacao() {
+    cout << "------------------------------------\n";
+}
+
+void escolherTamanho(int& tamanho_escolhido, float& valor_tamanho) {
+    cout << "Escolha um tamanho:\n";
+    cout << "1. Pequeno (R$ 27).\n";
+    cout << "2. Médio (R$ 35).\n";
+    cout << "3. Grande (R$ 48).\n";
+    separacao();
+    cout << "Digite o tamanho desejado:\n";
+    separacao();
+    cin >> tamanho_escolhido;
+    separacao();
+    switch (tamanho_escolhido) {
+        case 1:
+            valor_tamanho = 27.00;
+            break;
+        case 2:
+            valor_tamanho = 35.00;
+            break;
+        case 3:
+            valor_tamanho = 48.00;
+            break;
+        default:
+            cout << "Opção inválida!\n";
+            escolherTamanho(tamanho_escolhido, valor_tamanho);
+            return;
+            break;
+    }
+}
+
+void escolherBase(int& base_escolhida1, int& base_escolhida2, float& valor_base) {
+    cout << "Escolha até duas bases:\n";
+    cout << "1. Arroz japonês (R$ 2.00).\n";
+    cout << "2. Arroz integral (R$ 3.00).\n";
+    cout << "3. Mix de folhas (R$ 2.50).\n";
+    cout << "4. Repolho roxo (R$ 1.50).\n";
+    cout << "5. Quinoa (R$ 3.00).\n";
+    separacao();
+    cout << "Digite a primeira base desejada:\n";
+    separacao();
+    cin >> base_escolhida1;
+    separacao();
+    cout << "Digite a segunda base desejada:\n*Obs: caso não queira digite -1.\n";
+    separacao();
+    cin >> base_escolhida2;
+    separacao();
+    switch (base_escolhida1) {
+        case 1:
+            valor_base += 2.00;
+            break;
+        case 2:
+            valor_base += 3.00;
+            break;
+        case 3:
+            valor_base += 2.50;
+            break;
+        case 4:
+            valor_base += 1.50;
+            break;
+        case 5:
+            valor_base += 3.00;
+            break;
+    }
+    if (base_escolhida2 != -1) {
+        switch (base_escolhida2) {
+            case 1:
+                valor_base += 2.00;
+                break;
+            case 2:
+                valor_base += 3.00;
+                break;
+            case 3:
+                valor_base += 2.50;
+                break;
+            case 4:
+                valor_base += 1.50;
+                break;
+            case 5:
+                valor_base += 3.00;
+                break;
+        }
+    }
+}
+
+void dobrarProteina (char&dobrar_proteina, float&valor_proteina){
+    cout << "Deseja dobrar a quantidade de proteína (R$17.00)?\n*Obs responda com 's' ou 'n':\n";
+    cin >> dobrar_proteina;
+    separacao();
+    if (dobrar_proteina == 's' || dobrar_proteina == 'S') {
+        valor_proteina += 17.00;
+    }
+    else 
+    	if (dobrar_proteina == 'n' || dobrar_proteina == 'N'){
+    		return;
+		}
+}
+
+void escolherProteina(int& proteina_escolhida1, int& proteina_escolhida2) {
+    cout << "Escolha até duas proteínas:\n";
+    cout << "1. Atum.\n";
+    cout << "2. Atum com cream cheese.\n";
+    cout << "3. Frango em cubos.\n";
+    cout << "4. Ovo de codorna.\n";
+    cout << "5. Salmão.\n";
+    cout << "6. Salmão com cream cheese.\n";
+    cout << "7. Salmão grelhado.\n";
+    cout << "8. Shimeji.\n";
+    cout << "9. Nenhuma proteína.\n";
+    separacao();
+    cout << "Digite a primeira proteína desejada:\n";
+    separacao();
+    cin >> proteina_escolhida1;
+    separacao();
+    if (proteina_escolhida1 == 9) {
+        proteina_escolhida2 = -1;
+        return;
+    }
+    cout << "Digite a segunda proteína desejada:\n*Obs: caso não queira digite -1.\n";
+    separacao();
+    cin >> proteina_escolhida2;
+    separacao();
+    		
+}
+
+void escolherCrunche(int& crunche_escolhido1, int& crunche_escolhido2) {
+    cout << "Escolha até dois crunches:\n";
+    cout << "1. Chips de banana.\n";
+    cout << "2. Chips de batata doce.\n";
+    cout << "3. Chips de mandioca.\n";
+    cout << "4. Palha nori.\n";
+    cout << "5. Couve crispy.\n";
+    separacao();
+    cout << "Digite o primeiro crunche desejado:\n";
+    separacao();
+    cin >> crunche_escolhido1;
+    separacao();
+    cout << "Digite o segundo crunche desejado:\n*Obs: caso não queira digite -1.\n";
+    separacao();
+    cin >> crunche_escolhido2;
+    separacao();
+}
+
+void escolherTopping(int& topping_escolhido1, int& topping_escolhido2, int& topping_escolhido3) {
+    cout << "Escolha até três toppings:\n";
+    cout << "1. Abacate.\n";
+    cout << "2. Cenoura.\n";
+    cout << "3. Cream Cheese.\n";
+    cout << "4. Manga.\n";
+    cout << "5. Pepino.\n";
+    cout << "6. Tomate Cereja.\n";
+    cout << "7. Sunomono.\n";
+    cout << "8. Kani.\n";
+    separacao();
+    cout << "Digite o primeiro topping desejado:\n";
+    separacao();
+    cin >> topping_escolhido1;
+    separacao();
+    cout << "Digite o segundo topping desejado:\n*Obs: caso não queira digite -1.\n";
+    separacao();
+    cin >> topping_escolhido2;
+    separacao();
+    cout << "Digite o terceiro topping desejado:\n*Obs: caso não queira digite -1.\n";
+    separacao();
+    cin >> topping_escolhido3;
+    separacao();
+}
+
+void escolherNut(int& nut_escolhido) {
+    cout << "Escolha um nut:\n";
+    cout << "1. Amendoim.\n";
+    cout << "2. Amêndoa laminada.\n";
+    cout << "3. Castanha de caju.\n";
+    cout << "4. Castanha do Pará.\n";
+    separacao();
+    cout << "Digite o nut desejado:\n";
+    separacao();
+    cin >> nut_escolhido;
+    separacao();
+}
+
+void escolherMolho(int& molho_escolhido) {
+    cout << "Escolha um molho:\n";
+    cout << "1. Clássico.\n";
+    cout << "2. Ponzu.\n";
+    cout << "3. Mostarda e mel.\n";
+    cout << "4. Tarê.\n";
+    cout << "5. Shoyo.\n";
+    cout << "6. Sem molho.\n";
+    separacao();
+    cout << "Digite o molho desejado:\n";
+    separacao();
+    cin >> molho_escolhido;
+    separacao();
+}
+	 
+void mostrarPedido(int tamanho, int base1, int base2, int proteina1, int proteina2, int crunche1, int crunche2, int topping1, int topping2, int topping3, int&nut, int&molho) {
+	cout << "Seu Poke foi montado com sucesso!\n";
+	separacao();
+	cout << "Tamanho escolhido:\n";
+	switch (tamanho) {
+	    case 1:
+	        cout << "Pequeno (R$ 27.00)\n";
+	        break;
+	    case 2:
+	        cout << "Médio (R$ 35.00)\n";
+	        break;
+	    case 3:
+	        cout << "Grande (R$ 48.00)\n";
+	        break;
+	}
+	separacao();
+	cout << endl;
+	cout << "Bases escolhidas:\n";
+	switch (base1) {
+	    case 1:
+		    cout << "Arroz japonês (R$ 2.00)";
+	        break;
+	    case 2:
+	    	cout << "Arroz integral (R$ 3.00)";
+	        break;
+	    case 3:
+	        cout << "Mix de folhas (R$ 2.50)";
+	        break;
+	    case 4:
+	        cout << "Repolho roxo (R$ 1.50)";
+	        break;
+	    case 5:
+	        cout << "Quinoa (R$ 3.00)";
+	        break;
+	}
+	if (base2 != -1) {
+		cout << " e ";
+	    switch (base2) {
+			case 1:
+		    	cout << "Arroz japonês (R$ 2.00)";
+		        break;
+		    case 2:
+		        cout << "Arroz integral (R$ 3.00)";
+		        break;
+		    case 3:
+		        cout << "Mix de folhas (R$ 2.50)";
+		            break;
+		        case 4:
+		            cout << "Repolho roxo (R$ 1.50)";
+		            break;
+		        case 5:
+		            cout << "Quinoa (R$ 3.00)";
+		            break;
+	        }
+	    }
+	    cout << endl;
+		separacao();
+	    cout << "Proteínas escolhidas:\n";
+	    if (proteina1 == 9) {
+	        cout << "Nenhuma";
+	    } else {
+	        switch (proteina1) {
+	            case 1:
+	                cout << "Atum";
+	                break;
+	            case 2:
+	                cout << "Atum com cream cheese";
+	                break;
+	            case 3:
+	                cout << "Frango em cubos";
+	                break;
+	            case 4:
+	                cout << "Ovo de codorna";
+	                break;
+	            case 5:
+	                cout << "Salmão";
+	                break;
+	            case 6:
+	                cout << "Salmão com cream cheese";
+	                break;
+	            case 7:
+	                cout << "Salmão grelhado";
+	                break;
+	            case 8:
+	                cout << "Shimeji";
+	                break;
+	        }
+	        if (proteina2 != -1) {
+	            cout << " e ";
+	            switch (proteina2) {
+	                case 1:
+	                    cout << "Atum";
+	                    break;
+	                case 2:
+	                    cout << "Atum com cream cheese";
+	                    break;
+	                case 3:
+	                    cout << "Frango em cubos";
+	                    break;
+	                case 4:
+	                    cout << "Ovo de codorna";
+	                    break;
+	                case 5:
+	                    cout << "Salmão";
+	                    break;
+	                case 6:
+	                    cout << "Salmão com cream cheese";
+	                    break;
+	                case 7:
+	                    cout << "Salmão grelhado";
+	                    break;
+	                case 8:
+	                    cout << "Shimeji";
+	                    break;
+	            }
+	        }
+	    }
+	    cout << endl;
+		separacao();
+	    cout << "Crunches escolhidos:\n";
+	    switch (crunche1) {
+	        case 1:
+	            cout << "Chips de banana";
+	            break;
+	        case 2:
+	            cout << "Chips de batata doce";
+	            break;
+	        case 3:
+	            cout << "Chips de mandioca";
+	            break;
+	        case 4:
+	            cout << "Palha nori";
+	            break;
+	        case 5:
+	            cout << "Couve crispy";
+	            break;
+	    }
+	    if (crunche2 != -1) {
+	        cout << " e ";
+	        switch (crunche2) {
+	            case 1:
+	                cout << "Chips de banana";
+	                break;
+	            case 2:
+	                cout << "Chips de batata doce";
+	                break;
+	            case 3:
+	                cout << "Chips de mandioca";
+	                break;
+	            case 4:
+	                cout << "Palha nori";
+	                break;
+	            case 5:
+	                cout << "Couve crispy";
+	                break;
+	        }
+	    }
+	    cout << endl;
+		separacao();
+	    cout << "Toppings escolhidos:\n";
+	    switch (topping1) {
+	        case 1:
+	            cout << "Abacate";
+	            break;
+	        case 2:
+	            cout << "Cenoura";
+	            break;
+	        case 3:
+	            cout << "Cream Cheese";
+	            break;
+	        case 4:
+	            cout << "Manga";
+	            break;
+	        case 5:
+	            cout << "Pepino";
+	            break;
+	        case 6:
+	            cout << "Tomate Cereja";
+	            break;
+	        case 7:
+	            cout << "Sunomono";
+	            break;
+	        case 8:
+	            cout << "Kani";
+	            break;
+	    }
+	    if (topping2 != -1) {
+	        cout << " e ";
+	        switch (topping2) {
+	            case 1:
+	                cout << "Abacate";
+	                break;
+	            case 2:
+	                cout << "Cenoura";
+	                break;
+	            case 3:
+	                cout << "Cream Cheese";
+	                break;
+	            case 4:
+	                cout << "Manga";
+	                break;
+	            case 5:
+	                cout << "Pepino";
+	                break;
+	            case 6:
+	                cout << "Tomate Cereja";
+	                break;
+	            case 7:
+	                cout << "Sunomono";
+	                break;
+	            case 8:
+	                cout << "Kani";
+	                break;
+	        }
+	    }
+	    if (topping3 != -1) {
+	        cout << " e ";
+	        switch (topping3) {
+	            case 1:
+	                cout << "Abacate";
+	                break;
+	            case 2:
+	                cout << "Cenoura";
+	                break;
+	            case 3:
+	                cout << "Cream Cheese";
+	                break;
+	            case 4:
+	                cout << "Manga";
+	                break;
+	            case 5:
+	                cout << "Pepino";
+	                break;
+	            case 6:
+	                cout << "Tomate Cereja";
+	                break;
+	            case 7:
+	                cout << "Sunomono";
+	                break;
+	            case 8:
+	                cout << "Kani";
+	                break;
+	        }
+	    }
+	    cout << endl;
+	    separacao();
+		cout << "Nut escolhido:\n";
+		switch (nut) {
+	    	case 1:
+	        	cout << "Amendoim";
+	        	break;
+	    	case 2:
+	        	cout << "Amêndoa laminada";
+	        	break;
+	    	case 3:
+	        	cout << "Castanha de caju";
+	        	break;
+	        case 4: 
+	        	cout << "Castanha do Pará";
+	        	break;
+		}
+		cout << endl;
+		separacao();
+		cout << "Molho escolhido:\n";
+		switch (molho) {
+	    	case 1:
+	        	cout << "Clássico";
+	        	break;
+	    	case 2:
+	        	cout << "Ponzu";
+	        	break;
+	    	case 3:
+	        	cout << "Mostarde e mel";
+	        	break;
+	        case 4:
+	        	cout << "Tarê";
+	        	break;
+	        case 5:
+	        	cout << "Shoyo";
+	        	break;
+	        case 6:
+	        	cout << "Sem molho";
+				break;
+		}
+		cout << endl;
+		separacao();
+}
+
+int main() {
+	setlocale(LC_ALL, "Portuguese");
+    cout << "Bem-vindo à DEMAC POKE!!\n";
+    separacao();
+    cout << "MONTE SEU POKE\n";
+    separacao();
+    
+    float total_pedidos = 0.00;
+    char opcao;
+    do {
+        float valor_total = 0.00;
+        float valor_tamanho = 0.00, valor_base = 0.00, valor_proteina = 0.00;
+        int tamanho, base1, base2, proteina1, proteina2, crunche1, crunche2, topping1, topping2, topping3, nut, molho;
+        char dobro_proteina;
+        cout << fixed << setprecision(2);
+
+        escolherTamanho(tamanho, valor_tamanho);
+        escolherBase(base1, base2, valor_base);
+        escolherProteina(proteina1, proteina2);
+        dobrarProteina(dobro_proteina, valor_proteina);
+        escolherCrunche(crunche1, crunche2);
+        escolherTopping(topping1, topping2, topping3);
+        escolherNut(nut);
+        escolherMolho(molho);
+
+        valor_total = valor_tamanho + valor_base + valor_proteina;
+        total_pedidos += valor_total;
+        
+        separacao();
+        cout << "O valor total do pedido foi de: R$ " << valor_total << "\n";
+        separacao();
+        mostrarPedido(tamanho, base1, base2, proteina1, proteina2, crunche1, crunche2, topping1, topping2, topping3, nut, molho);
+        separacao();
+        while (true) {
+            cout << "Deseja fazer outro pedido, alterar o pedido atual ou sair?\n1. Outro pedido\n2. Alterar pedido\n3. Sair\n";
+            separacao();
+            cin >> opcao;
+            separacao();
+            if (opcao == '3') {
+                break;
+            } else if (opcao == '2') {
+                char opcao_alterar;
+                cout << "Qual parte do pedido você deseja alterar?\n1. Tamanho\n2. Base\n3. Proteína\n4. Crunche\n5. Topping\n6. Nut\n7. Molho\n";
+                separacao();
+                cin >> opcao_alterar;
+                
+                switch (opcao_alterar) {
+                    case '1':
+                        escolherTamanho(tamanho, valor_tamanho);
+                        break;
+                    case '2':
+                        escolherBase(base1, base2, valor_base);
+                        break;
+                    case '3':
+                        escolherProteina(proteina1, proteina2);
+                        dobrarProteina(dobro_proteina, valor_proteina);
+                        break;
+                    case '4':
+                        escolherCrunche(crunche1, crunche2);
+                        break;
+                    case '5':
+                        escolherTopping(topping1, topping2, topping3);
+                        break;
+                    case '6':
+                        escolherNut(nut);
+                        break;
+                    case '7':
+                        escolherMolho(molho);
+                        break;
+                    default:
+                        cout << "Opção inválida. Tente novamente.\n";
+                        continue;
+                }
+
+                // Atualiza o valor total após a alteração
+                total_pedidos -= valor_total;
+                valor_total = valor_tamanho + valor_base + valor_proteina;
+                total_pedidos += valor_total;
+				separacao();
+                cout << "O valor total do pedido foi de: R$ " << valor_total << "\n";
+                separacao();
+                mostrarPedido(tamanho, base1, base2, proteina1, proteina2, crunche1, crunche2, topping1, topping2, topping3, nut, molho);
+                separacao();
+            } else {
+                break;
+            }
+        }
+       
+    } while (opcao == '1' || opcao == '2');
+
+    separacao();
+    cout << "O valor total de todos os pedidos foi de: R$ " << total_pedidos << "\n";
+
+    return 0;
+}
